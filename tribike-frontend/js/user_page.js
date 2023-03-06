@@ -46,8 +46,16 @@ window.addEventListener("load", () => {
   
       // Define what happens on successful data submission
       XHR.addEventListener("load", (event) => {
-        //alert('Cadastrado com sucesso!');
-        window.location.replace("./dashboard.html");
+        resposta=JSON.parse(XHR.response)
+        if(resposta.hasOwnProperty('token')){
+          token=resposta.token
+          window.localStorage.setItem('token', token);
+          window.location.replace("./dashboard.html");
+          //window.localStorage.getItem(key);
+      }else{
+          alert("Login incorreto.")
+      }
+       
       });
   
       // Define what happens in case of error
