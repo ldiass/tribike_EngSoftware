@@ -51,7 +51,7 @@ window.addEventListener("load", () => {
           token=resposta.token
           window.localStorage.setItem('token', token);
           window.location.replace("./dashboard.html");
-          //window.localStorage.getItem(key);
+          //window.localStorage.getItem(token);
       }else{
           alert("Login incorreto.")
       }
