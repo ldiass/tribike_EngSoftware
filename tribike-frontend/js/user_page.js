@@ -1,11 +1,79 @@
 window.addEventListener("load", () => {
+    //Funções para validação das informações abaixo
 
-    function signUp(usr_role) {
+    function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expressão regular para validar o formato do e-mail
+        return regex.test(email);
+    }
+
+    function validateCPF(cpf) {
+        cpf = cpf.replace(/[^\d]+/g,''); // Remove tudo que não é número
+        if (cpf.length !== 11 || /^\d{11}$/.test(cpf) === false) {
+            return false; // CPF deve ter 11 dígitos
+        }
+
+        // Verifica se todos os dígitos são iguais
+        if (/^(\d)\1{10}$/.test(cpf)) {
+            return false;
+        }
+
+        // Verifica o primeiro dígito verificador
+        let sum = 0;
+        for (let i = 0; i < 9; i++) {
+            sum += parseInt(cpf.charAt(i)) * (10 - i);
+        }
+
+        let mod = sum % 11;
+        let firstDigitVerifier = mod < 2 ? 0 : 11 - mod;
+
+        if (parseInt(cpf.charAt(9)) !== firstDigitVerifier) {
+            return false;
+        }
+
+        // Verifica o segundo dígito verificador
+        sum = 0;
+        for (let i = 0; i < 10; i++) {
+            sum += parseInt(cpf.charAt(i)) * (11 - i);
+        }
+
+        mod = sum % 11;
+        let secondDigitVerifier = mod < 2 ? 0 : 11 - mod;
+
+        if (parseInt(cpf.charAt(10)) !== secondDigitVerifier) {
+            return false;
+        }
+
+        return true; // CPF válido
+    }
+
+    function validateBirthDate(date) {
+        const regex = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/(19|20)\d{2}$/; // Expressão regular para validar o formato da data de nascimento
+        return regex.test(date);
+    }
+
+    function validateAddress(string) {
+        const regex = /^[a-zA-Z0-9\s.,-]+$/; // Expressão regular para validar o endereço
+        return regex.test(string);
+    }
+
+    function validateBankBranch(branch) {
+        const regex = /^[0-9]{4}-?[0-9]{1}$/; // Expressão regular para validar o número da agência bancária
+        return regex.test(branch);
+    }
+
+    function validateBankAccount(account) {
+        const regex = /^[0-9]{1,12}-?[0-9]{1}$/; // Expressão regular para validar o número da conta bancária
+        return regex.test(account);
+    }
+
+
+  function signUp(usr_role) {
       const XHR = new XMLHttpRequest();
   
       // Define what happens on successful data submission
       XHR.addEventListener("load", (event) => {
         alert('Cadastrado com sucesso!');
+        window.location.replace("index.html");
       });
   
       // Define what happens in case of error
@@ -33,8 +101,8 @@ window.addEventListener("load", () => {
       data=data+document.getElementById("sign_dob").value;
       data=data+'\",    \"endereco\": \"';
       data=data+document.getElementById("sign_end").value;
-      data=data+'\",    \"papel\": \"';
-      data=data+usr_role;
+      /*data=data+'\",    \"papel\": \"';
+      data=data+usr_role;*/
       data=data+'\"}';
       console.log(data);
       XHR.send(data);
@@ -99,11 +167,36 @@ window.addEventListener("load", () => {
       }
 
       //Validate the form here previous to the signup call
-      if(document.getElementById("sign_pwd").value==document.getElementById("confirm_pwd").value){
-        signUp(usr_role);
-      }else{
-        alert('As senhas não são iguais!');
-      }
+        if(document.getElementById("sign_pwd").value!=document.getElementById("confirm_pwd").value)
+            alert('As senhas não são iguais!');
+
+            // Validação do e-mail
+            else if (!validateEmail(document.getElementById("sign_mail").value))
+                alert('E-mail inválido!');
+
+            // Validação do CPF
+            else if (!validateCPF(document.getElementById("sign_cpf").value))
+                alert('CPF inválido!');
+
+            // Validação da data de nascimento
+            else if (!validateBirthDate(document.getElementById("sign_dob").value))
+                alert('Data de nascimento inválida!');
+
+            // Validação do endereço
+            else if (!validateAddress(document.getElementById("sign_end").value))
+                alert('Endereço inválido!');
+
+            // Validação da agência bancária
+            else if (!validateBankBranch(document.getElementById("sign_ag").value))
+                alert('Agência bancária inválida!');
+
+            // Validação da conta corrente
+            else if (!validateBankAccount(document.getElementById("sign_cc").value))
+                alert('Conta corrente inválida!');
+
+            // Se todas as validações ocorreram, segue com o cadastro
+            else
+                signUp(usr_role);
     });
 
     login_form.addEventListener("submit", (event) => {
