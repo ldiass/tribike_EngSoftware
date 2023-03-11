@@ -1,6 +1,6 @@
 window.addEventListener("load", () => {
 
-    function signUp() {
+    function signUp(usr_role) {
       const XHR = new XMLHttpRequest();
   
       // Define what happens on successful data submission
@@ -32,7 +32,9 @@ window.addEventListener("load", () => {
       data=data+'\",    \"dataNascimento\": \"';
       data=data+document.getElementById("sign_dob").value;
       data=data+'\",    \"endereco\": \"';
-      data=data+document.getElementById("sign_end").value;      
+      data=data+document.getElementById("sign_end").value;
+      data=data+'\",    \"papel\": \"';
+      data=data+usr_role;
       data=data+'\"}';
       console.log(data);
       XHR.send(data);
@@ -49,8 +51,10 @@ window.addEventListener("load", () => {
         resposta=JSON.parse(XHR.response)
         if(resposta.hasOwnProperty('token')){
           token=resposta.token
+          email=document.getElementById("login_mail").value
+          window.localStorage.setItem('user_mail', email)
           window.localStorage.setItem('token', token);
-          window.location.replace("./dashboard.html");
+          window.location.replace("./dashboard/index.html");
           //window.localStorage.getItem(token);
       }else{
           alert("Login incorreto.")
@@ -86,8 +90,17 @@ window.addEventListener("load", () => {
     // Add 'submit' event handler
     signup_form.addEventListener("submit", (event) => {
       event.preventDefault();
+
+      //Extract user role
+      var ele = document.getElementsByName('role');
+      for(i = 0; i < ele.length; i++) {
+        if(ele[i].checked)
+              usr_role=ele[i].value;
+      }
+
+      //Validate the form here previous to the signup call
       if(document.getElementById("sign_pwd").value==document.getElementById("confirm_pwd").value){
-        signUp();
+        signUp(usr_role);
       }else{
         alert('As senhas não são iguais!');
       }
