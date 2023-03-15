@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Tribike - Cadastrar bicicleta</title>
+    <title>Minhas bicicletas</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -29,9 +29,8 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-
     <script type="text/javascript" src="js/authenticate.js"></script>
-    <script type="text/javascript" src="js/new_bike.js"></script>
+    <script type="text/javascript" src="js/busca.js"></script>
 </head>
 
 <body>
@@ -43,6 +42,8 @@
             </div>
         </div>
         <!-- Spinner End -->
+
+
 
 
         <!-- Sidebar Start -->
@@ -74,8 +75,8 @@
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                    <a href="bicicletas.html" class="nav-item nav-link"><i class="fa  fa-bicycle me-2"></i>Bicicletas</a>
-                    <a href="nova_bike.html" class="nav-item nav-link active"><i class="fa  fa-plus me-2"></i>Nova Bicicleta</a>
+                    <a href="bicicletas.html" class="nav-item nav-link "><i class="fa  fa-bicycle me-2"></i>Bicicletas</a>
+                    <a href="busca.html" class="nav-item nav-link active "><i class="fa  fa-search me-2"></i>Buscar bicicleta</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
@@ -185,70 +186,35 @@
             <!-- Navbar End -->
 
 
-            <!-- Form Start -->
+            <!-- Table Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-sm-12 col-xl">
+                    <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Cadastrar nova bicicleta</h6>
-                            <form id="newbike-form">
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <div class="col-sm-10">
-                                            <label for="bike_marca" class="col-sm-2 col-form-label">Marca</label>
-                                            <input type="text" class="form-control" id="bike_marca" required>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="bike_modelo" class="col-sm-2 col-form-label">Modelo</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="bike_modelo" required>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="bike_peso" class="col-sm-2 col-form-label">Peso</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="bike_peso" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="bike_descricao">Descrição</label>
-                                    <textarea class="form-control" placeholder="Descrição bicicleta"
-                                              id="bike_descricao" style="height: 75px;"></textarea>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="bike_url" class="col-sm-2 col-form-label">URL foto</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="bike_url"  placeholder="URL da foto da bicicleta">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="bike_acessorios">Acessórios</label>
-                                    <textarea class="form-control" placeholder="Lista de acessórios"
-                                              id="bike_acessorios" style="height: 75px;"></textarea>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-2">
-                                        <div class="col-sm-10">
-                                            <label for="bike_preco" class="col-sm-2 col-form-label">Preço</label>
-                                            <input type="text" class="form-control" id="bike_preco" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <label for="bike_desconto" class="col-sm-2 col-form-label">Desconto</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="bike_desconto" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary" value="Cadastrar">Cadastrar nova bicicleta</button>
-                            </form>
+                            <h6 class="mb-4">Bicicletas disponíveis</h6>
+                            <div class="table-responsive">
+                                <table class="table" id="bicicletas">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">marca</th>
+                                        <th scope="col">modelo</th>
+                                        <th scope="col">descricao</th>
+                                        <th scope="col">Acessorios</th>
+                                        <th scope="col">Preço</th>
+                                        <th scope="col">Desconto</th>
+                                        <th scope="col">Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="bicicletas_table">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Form End -->
+            <!-- Table End -->
 
 
             <!-- Footer Start -->
