@@ -14,6 +14,7 @@ window.addEventListener("load", () => {
         // Define what happens on successful data submission
         create_bicicleta.addEventListener("load", (event) => {
             alert("Sua bicicleta " + document.getElementById("bike_marca").value+" foi cadastrada com sucesso!");
+            window.location.replace("index.html");
         });
 
         // Define what happens in case of error
@@ -34,7 +35,7 @@ window.addEventListener("load", () => {
         data=data+document.getElementById("bike_descricao").value;
         data=data+'\",    \"preco\": \"';
         data=data+document.getElementById("bike_preco").value;
-        data=data+'\",    \"url_foto\": \"';
+        data=data+'\",    \"urlFoto\": \"';
         data=data+document.getElementById("bike_url").value;
         data=data+'\",    \"peso\": \"';
         data=data+document.getElementById("bike_peso").value;
@@ -42,6 +43,10 @@ window.addEventListener("load", () => {
         data=data+document.getElementById("bike_acessorios").value;
         data=data+'\",    \"desconto\": \"';
         data=data+document.getElementById("bike_desconto").value;
+        data=data+'\",    \"bairro\": \"';
+        data=data+document.getElementById("bike_bairro").value;
+        data=data+'\",    \"usuario\": \"';
+        data=data+localStorage.getItem("user_id");
         data=data+'\"}';
         console.log(data);
         create_bicicleta.send(data);

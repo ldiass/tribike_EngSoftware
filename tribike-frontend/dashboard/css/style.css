@@ -275,3 +275,8 @@
     background: var(--dark);
     border-color: var(--primary);
 }
+
+.img-table {
+    max-width: 100px;
+    width:100%;
+}

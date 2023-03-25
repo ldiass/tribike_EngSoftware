@@ -8,7 +8,7 @@ window.addEventListener("load", () => {
         bike_request.addEventListener("load", (event) => {
             if (bike_request.DONE == 4 && bike_request.status == 200) {
                 bicicletas = JSON.parse(bike_request.response);
-                append_json(bicicletas._embedded.bicicletas);
+                append_json(bicicletas);
             } else {
                 console.log("Não foi possível carregar a lista de bicicletas.")
             }
@@ -19,7 +19,7 @@ window.addEventListener("load", () => {
             }
         );
         // Set up our request
-        bike_request.open("GET", "http://localhost:8082/bicicletas");
+        bike_request.open("GET", "http://localhost:8082/bicicleta?usuario="+window.localStorage.getItem('user_id'));
         bike_request.setRequestHeader("Authorization", window.localStorage.getItem('token'));
         bike_request.send()
 
@@ -35,9 +35,9 @@ window.addEventListener("load", () => {
                     '<td>' + object.marca + '</td>' +
                     '<td>' + object.modelo + '</td>' +
                     '<td>' + object.descricao + '</td>' +
-                    '<td>' + object.Acessorios + '</td>' +
-                    '<td>' + object.Preco + '</td>' +
-                    '<td>' + object.Desconto + '</td>'
+                    '<td>' + object.acessorios + '</td>' +
+                    '<td>' + object.preco + '</td>' +
+                    '<td>' + object.desconto + '</td>'
                 table.appendChild(tr);
                 count = count + 1;
             });

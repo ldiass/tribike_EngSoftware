@@ -44,6 +44,24 @@
         <!-- Spinner End -->
 
 
+        <!-- Modal -->
+        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modal-text">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="confirma-reserva">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal End-->
 
 
         <!-- Sidebar Start -->
@@ -191,18 +209,26 @@
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Bicicletas disponíveis</h6>
+                            <h6 class="mb-4">Bicicletas disponíveis para
+                                <form id="filtro_data" class="d-inline">
+                                    <input id="start_date" type="date" >
+                                     a
+                                    <input id="end_date" type="date" >
+                                    <button type="submit" class="btn btn-sm btn-sm-square btn-outline-primary"><i class="fa fa-sync"></i></button>
+                                </form>
+                            </h6>
                             <div class="table-responsive">
                                 <table class="table" id="bicicletas">
                                     <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">marca</th>
-                                        <th scope="col">modelo</th>
-                                        <th scope="col">descricao</th>
-                                        <th scope="col">Acessorios</th>
+                                        <th scope="col">Foto</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Modelo</th>
+                                        <th scope="col">Descrição</th>
+                                        <th scope="col">Acessórios</th>
                                         <th scope="col">Preço</th>
-                                        <th scope="col">Desconto</th>
+                                        <th scope="col">Bairro</th>
                                         <th scope="col">Ações</th>
                                     </tr>
                                     </thead>

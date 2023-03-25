@@ -6,6 +6,7 @@ XHR.addEventListener("load", (event) => {
         user_json=JSON.parse(XHR.response)
         window.localStorage.setItem('user_name', user_json.nome);
         window.localStorage.setItem('user_role', user_json.papel);
+        window.localStorage.setItem('user_id', user_json.id);
         $("#user_name").html(user_json.nome);
     }else{
       window.location.replace("../index.html");
