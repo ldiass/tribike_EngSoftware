@@ -47,7 +47,7 @@ window.addEventListener("load", () => {
     }
 
     function validateBirthDate(date) {
-        const regex = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/(19|20)\d{2}$/; // Expressão regular para validar o formato da data de nascimento
+        const regex = /^\d{4}-\d{2}-\d{2}$/; // Expressão regular para validar o formato da data de nascimento
         return regex.test(date);
     }
 
@@ -65,6 +65,7 @@ window.addEventListener("load", () => {
         const regex = /^[0-9]{1,12}-?[0-9]{1}$/; // Expressão regular para validar o número da conta bancária
         return regex.test(account);
     }
+
 
 
   function signUp(usr_role) {
@@ -95,14 +96,16 @@ window.addEventListener("load", () => {
       data=data+document.getElementById("sign_cpf").value;
       data=data+'\",    \"agenciaBancaria\": \"';
       data=data+document.getElementById("sign_ag").value;
-      data=data+'\",    \"contaaBancaria\": \"';
+      data=data+'\",    \"contaBancaria\": \"';
       data=data+document.getElementById("sign_cc").value;
       data=data+'\",    \"dataNascimento\": \"';
       data=data+document.getElementById("sign_dob").value;
       data=data+'\",    \"endereco\": \"';
       data=data+document.getElementById("sign_end").value;
-      /*data=data+'\",    \"papel\": \"';
-      data=data+usr_role;*/
+      data=data+'\",    \"bairro\": \"';
+      data=data+document.getElementById("sign_region").value;
+      data=data+'\",    \"papel\": \"';
+      data=data+usr_role;
       data=data+'\"}';
       console.log(data);
       XHR.send(data);
@@ -186,13 +189,6 @@ window.addEventListener("load", () => {
             else if (!validateAddress(document.getElementById("sign_end").value))
                 alert('Endereço inválido!');
 
-            // Validação da agência bancária
-            else if (!validateBankBranch(document.getElementById("sign_ag").value))
-                alert('Agência bancária inválida!');
-
-            // Validação da conta corrente
-            else if (!validateBankAccount(document.getElementById("sign_cc").value))
-                alert('Conta corrente inválida!');
 
             // Se todas as validações ocorreram, segue com o cadastro
             else

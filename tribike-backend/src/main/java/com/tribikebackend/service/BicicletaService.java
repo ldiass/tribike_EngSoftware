@@ -5,11 +5,13 @@ import com.tribikebackend.entity.Usuario;
 import com.tribikebackend.entity.dto.BicicletaDto;
 import com.tribikebackend.entity.dto.NewBicicletaDto;
 import com.tribikebackend.repository.BicicletaRepository;
+import com.tribikebackend.repository.UsuarioRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,19 +23,26 @@ public class BicicletaService {
     @Autowired
     private BicicletaRepository bicicletaRepository;
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioRepository usuarioRepository;
 
     public List<BicicletaDto> findAll() {
         return bicicletaRepository.findAll().stream().map(BicicletaDto::new).collect(Collectors.toList());
     }
+
+    public List<BicicletaDto> findAvailable(String bairro, LocalDate dataInicio, LocalDate dataFim) {
+        if (dataInicio != null && dataFim != null && bairro != null) {
+            return bicicletaRepository.findAvailable(bairro, dataInicio, dataFim).stream().map(BicicletaDto::new).collect(Collectors.toList());
+        } else if (dataInicio != null && dataFim != null) {
+            return bicicletaRepository.findByDate(dataInicio, dataFim).stream().map(BicicletaDto::new).collect(Collectors.toList());
+        } else if (bairro != null) {
+            return bicicletaRepository.findByBairroIgnoreCase(bairro).stream().map(BicicletaDto::new).collect(Collectors.toList());
+        } else {
+            return bicicletaRepository.findAll().stream().map(BicicletaDto::new).collect(Collectors.toList());
+        }
+    }
+
     public List<BicicletaDto> findAllByUsuarioId(Long id) {
         return bicicletaRepository.findAllByUsuarioId(id).stream().map(BicicletaDto::new).collect(Collectors.toList());
-    /*    Optional<Usuario> usuario = usuarioService.findById(id);
-        if (usuario.isPresent()) {
-            return bicicletaRepository.findAllbyDono(usuario.get());
-        } else {
-            return new ArrayList<>();
-        } */
     }
     public Bicicleta save(NewBicicletaDto b) {
         Bicicleta bicicleta = Bicicleta.builder()
@@ -48,7 +57,7 @@ public class BicicletaService {
                                     .bairro(b.getBairro())
                                     .build();
         if (b.getUsuario() != null) {
-            Optional<Usuario> usuarioOptional = usuarioService.findById(b.getUsuario());
+            Optional<Usuario> usuarioOptional = usuarioRepository.findById(b.getUsuario());
             if (usuarioOptional.isPresent()) {
                 bicicleta.setUsuario(usuarioOptional.get());
             }
