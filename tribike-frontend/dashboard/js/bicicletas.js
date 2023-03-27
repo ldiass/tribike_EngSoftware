@@ -58,8 +58,8 @@ window.addEventListener("load", () => {
 
         //Show confirmation modal
         $("#confirmModal").on('shown.bs.modal', function(){
-            var confirm_str="Confirmar exclusão da bicicleta "+
-                +chosed_marca.toString()+" / "+chosed_modelo;
+            var confirm_str="Confirmar exclusão da bicicleta "
+                +chosed_marca+" / "+chosed_modelo;
             document.getElementById("modal-text").innerHTML = confirm_str;
         });
 

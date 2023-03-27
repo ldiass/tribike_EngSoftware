@@ -38,8 +38,10 @@ window.addEventListener("load", () => {
             data.forEach(function (object) {
                 if(user_json.papel=3){
                     var nome_table=object.locatario.nome
+                    var mail_table=object.locatario.email
                 }else{
                     var nome_table=object.locador.nome
+                    var mail_table=object.locador.email
                 }
                 var tr = document.createElement('tr');
                 tr.innerHTML =
@@ -50,7 +52,10 @@ window.addEventListener("load", () => {
                     '<td class="align-middle">' + nome_table + '</td>' +
                     '<td class="align-middle">' + object.precoTotal + '</td>' +
                     '<td class="d-none">' + object.id + '</td>'+
-                    '<td class="align-middle"><button type="button" class="btn btn-outline-danger m-1 btn-sm aluguel-btn" data-bs-toggle="modal" data-bs-target="#confirmModal"  value="'+count+'" >Cancelar</button></td>'
+                    '<td class="d-none">' + mail_table + '</td>'+
+                    '<td class="d-none">' + object.bicicleta.marca + '</td>'+
+                    '<td class="d-none">' + object.bicicleta.bairro + '</td>'+
+                    '<td class="align-middle"><button type="button" class="btn btn-outline-secondary m-1 btn-sm aluguel-btn" data-bs-toggle="modal" data-bs-target="#confirmModal"  value="'+count+'" >Detalhes</button></td>'
                 table.appendChild(tr);
                 count = count + 1;
             });
@@ -109,6 +114,23 @@ window.addEventListener("load", () => {
             });
         }
 
+        //Show detail modal
+        $("#confirmModal").on('shown.bs.modal', function(){
+            var confirm_str="Bicicleta alugada: "
+                +chosed_brand+" / "+chosed_model+"<br>"
+                +"Entre "+chosed_sd+" e "+chosed_ed+"<br>"
+                +"Contato: "+chosed_name+"("+chosed_mail+")"+"<br>"
+                +"Valor negociado: "+chosed_value
+            ;
+            document.getElementById("modal-text").innerHTML = confirm_str;
+        });
+
+        if (document.addEventListener) {
+            document.addEventListener("click", handleClick, false);
+        }
+        else if (document.attachEvent) {
+            document.attachEvent("onclick", handleClick);
+        }
 
         //Get infos on button click
         function handleClick(event) {
@@ -129,15 +151,25 @@ window.addEventListener("load", () => {
             }
         }
 
-        var chosed_modelo= "";
-        var chosed_marca= "";
-        var chosed_bike=0
+        var chosed_sd="";
+        var chosed_ed="";
+        var chosed_model="";
+        var chosed_name="";
+        var chosed_value="";
+        var chosed_mail="";
+        var chosed_brand="";
+        var chosed_region="";        
         // //Fill variables of selected row on the table
          function get_aluguel_attributes(button) {
-             let bike_row=document.getElementById("reservas").rows[button.value].cells
-             chosed_bike= bike_row[1].value
-             chosed_marca=bike_row[2].innerHTML
-             chosed_modelo=bike_row[3].innerHTML
+             let alugue_row=document.getElementById("reservas").rows[button.value].cells
+             chosed_sd= alugue_row[1].innerHTML
+             chosed_ed=alugue_row[2].innerHTML
+             chosed_model=alugue_row[3].innerHTML
+             chosed_name=alugue_row[4].innerHTML
+             chosed_value=alugue_row[5].innerHTML
+             chosed_mail=alugue_row[7].innerHTML
+             chosed_brand=alugue_row[8].innerHTML
+             chosed_region=alugue_row[9].innerHTML
          }
 
 

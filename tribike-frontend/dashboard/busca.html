@@ -33,6 +33,14 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/authenticate.js"></script>
     <script type="text/javascript" src="js/busca.js"></script>
+    <script type="text/javascript">
+        function reset_form(){
+            window.localStorage.removeItem('rent_start_date');
+            window.localStorage.removeItem('rent_end_date');
+            window.localStorage.removeItem('region_search');
+            window.location.replace("busca.html");
+        }
+    </script>
 </head>
 
 <body>
@@ -132,7 +140,8 @@
                                     <input class="mx-1" id="end_date" type="date" >
                                     em
                                     <input class="mx-1" id="region_in" style="max-width: 150px;" type="text" placeholder="Todos bairros">
-                                    <button type="submit" class="btn btn-sm btn-sm-square btn-outline-primary"><i class="fa fa-sync"></i></button>
+                                    <button type="submit" class="btn btn-sm btn-sm-square btn-outline-primary"><i class="fa fa-search"></i></button>
+                                    <button type="button" class="btn btn-sm btn-sm-square btn-outline-primary" id="restart-btn" onclick="reset_form()"><i class="fa fa-sync"></i></button>
                                 </form>
                             </h6>
                             <div class="table-responsive">
@@ -145,7 +154,7 @@
                                         <th scope="col">Modelo</th>
                                         <th scope="col">Descrição</th>
                                         <th scope="col">Acessórios</th>
-                                        <th scope="col">Diária (R$)</th>
+                                        <th scope="col">Diária</th>
                                         <th scope="col">Bairro</th>
                                         <th scope="col">Ações</th>
                                         <th scope="col" class="d-none">Id</th>
