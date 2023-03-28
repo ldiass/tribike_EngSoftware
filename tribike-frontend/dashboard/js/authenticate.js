@@ -9,7 +9,6 @@ XHR.addEventListener("load", (event) => {
         window.localStorage.setItem('user_id', user_json.id);
         $("#user_name").html(user_json.nome)
         $("#user_name_opt").html(user_json.nome);
-
         if(user_json.papel==3){
             var locat_only_itms = document.getElementsByClassName('locat_only');
             for (var i = 0; i < locat_only_itms.length; i ++) {

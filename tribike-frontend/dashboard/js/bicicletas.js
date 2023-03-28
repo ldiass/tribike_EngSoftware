@@ -112,8 +112,6 @@ window.addEventListener("load", () => {
                     console.log("A exclusão não pode ser efeutada")
                 }
             });
-
-
             exclude_bike.addEventListener("error", (event) => {
                 alert("A exclusão não pode ser efeutada");
             });
